@@ -1,0 +1,40 @@
+Package: screenwerk
+Type: Package
+Title: A modular library with a set of tools for the design and analysis of 
+    drug combination screens
+Version: 0.2.0
+Date: 2022-11-03
+Authors@R: person("Robert", "Hanes", ,"robert.hanes@medisin.uio.no",
+                  role = c("aut", "cre"),
+                  comment = c(ORCID = "0000-0001-6544-2182"))
+Description: screenwerk is an R package that consists of multiple functions 
+    that can be used to (a) set up a drug screen and generate a dispensing 
+    file, (b) read raw measurements and consolidate different data sets, 
+    (c) perform quality control, (d) analyze, and (e) report and visualize the 
+    results. 
+License: GPL (>= 3) + file LICENSE
+biocViews:
+Imports:
+    stats,
+    utils,
+    XML,
+    ggplot2,
+    ggrepel,
+    gridExtra,
+    drc,
+    grDevices,
+    graphics,
+    bayesynergy,
+    rstan,
+    synergyfinder
+Depends: 
+    R (>= 3.6.0)
+Suggests: 
+    testthat (>= 3.1.0),
+    knitr,
+    rmarkdown
+Remotes: ocbe-uio/bayesynergy
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.1
+
