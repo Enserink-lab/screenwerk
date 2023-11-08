@@ -146,7 +146,7 @@ synergyfinder <- function(processedData, synergymodel = c("ZIP", "HSA", "Bliss",
       
       # Add a zero dose pair for each drugpair ~ reference drug combination.
       # Note: A single zero dose ~ zero dose pair is added 
-      synDFS[[samplename]][["drm"]][[drugname]] <- rbind(synDFS[[samplename]][["drm"]][[drugname]], data.frame(response = 1, # Needs optimization: either randomly picking a DMSO, or using the median of all DMSO measurements from all plates
+      synDFS[[samplename]][["drm"]][[drugname]] <- rbind(synDFS[[samplename]][["drm"]][[drugname]], data.frame(response = 100,
                                                                                                                drug_row = unique(synDataset[[samplename]][["singleDrugResponseData"]]$Drug[which(synDataset[[samplename]][["singleDrugResponseData"]]$Drug != drugname)]),
                                                                                                                drug_col = drugname,
                                                                                                                conc_r = 0,
@@ -157,8 +157,8 @@ synergyfinder <- function(processedData, synergymodel = c("ZIP", "HSA", "Bliss",
       
       
       # Select only doses that have been combined for each drug and drug pair, respectively
-      synDFS[[samplename]][["drm"]][[drugname]] <- do.call(rbind, setNames( lapply(split(synDFS[[samplename]][["drm"]][[drugname]], synDFS[[samplename]][["drm"]][[drugname]]$drug_col), function (a) subset(a, (conc_c %in% c(unique(synDataset$MeWo$combinationData$Drug.Concentration[which(synDataset[[samplename]][["combinationData"]]$Drug == unique(a$drug_col) )]), 0)))), NULL))
-      synDFS[[samplename]][["drm"]][[drugname]] <- do.call(rbind, setNames( lapply(split(synDFS[[samplename]][["drm"]][[drugname]], synDFS[[samplename]][["drm"]][[drugname]]$drug_row), function (a) subset(a, (conc_r %in% c(unique(synDataset$MeWo$combinationData$Drug.Concentration[which(synDataset[[samplename]][["combinationData"]]$Drug == unique(a$drug_row) )]), 0)))), NULL))
+      synDFS[[samplename]][["drm"]][[drugname]] <- do.call(rbind, setNames( lapply(split(synDFS[[samplename]][["drm"]][[drugname]], synDFS[[samplename]][["drm"]][[drugname]]$drug_col), function (a) subset(a, (conc_c %in% c(unique(synDataset[[samplename]][["combinationData"]]$Drug.Concentration[which(synDataset[[samplename]][["combinationData"]]$Drug == unique(a$drug_col) )]), 0)))), NULL))
+      synDFS[[samplename]][["drm"]][[drugname]] <- do.call(rbind, setNames( lapply(split(synDFS[[samplename]][["drm"]][[drugname]], synDFS[[samplename]][["drm"]][[drugname]]$drug_row), function (a) subset(a, (conc_r %in% c(unique(synDataset[[samplename]][["combinationData"]]$Drug.Concentration[which(synDataset[[samplename]][["combinationData"]]$Drug == unique(a$drug_row) )]), 0)))), NULL))
       
       # Re-arrange data set
       synDFS[[samplename]][["drm"]][[drugname]] <- synDFS[[samplename]][["drm"]][[drugname]][with(synDFS[[samplename]][["drm"]][[drugname]], order(drug_row, drug_col, -conc_r, -conc_c)),]
